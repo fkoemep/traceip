@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Ip Address Lookup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<form action="#" th:action="@{/lookup}" method="post">
+
+    <p>Ip Adress: <input type="text" th:value="${ipAddress}" name="ipAddress" /></p>
+    <p th:if="${errorMessage != null && errorMessage != ''}" th:text="${errorMessage}" style="color: red;" />
+
+
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

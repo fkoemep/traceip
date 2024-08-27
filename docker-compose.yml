@@ -1,0 +1,24 @@
+services:
+  redis:
+    image: redis
+    command: --port 63719
+    ports:
+      - "127.0.0.1:63719:63719"
+      # Specify 127.0.0.1 to prevent access from outside the host
+  mongo:
+    image: mongo
+    command: mongod --port 2717
+    ports:
+      - "127.0.0.1:2717:2717"
+      # Specify 127.0.0.1 to prevent access from outside the host
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8089:8080"
+      # Specify 127.0.0.1 to prevent access from outside the host
+    links:
+      - redis
+      - mongo

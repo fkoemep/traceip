@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Ip Address Lookup</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'IP: ' + ${result.ip} + ', current datetime: ' + ${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm:ss')} " />
+<p th:text="'Country: ' + ${result.countryName}" />
+<p th:text="'ISO Code: ' + ${result.countryCode.toLowerCase()}" />
+
+<div style="display: inline-flex">
+    <div th:text="'Languages:&nbsp;'"/>
+    <div th:each="language : ${result.languages}">
+        <span th:text="${language.name} + ' (' + ${language.code} + ')&nbsp;'" />
+    </div>
+</div>
+
+<p th:unless="${result.currency.code == 'USD'}" th:text="'Currency: ' + ${result.currency.code} + ' (1 ' + ${result.currency.code} + ' = ' + ${result.currencyRate} + ' US$)'" />
+<p th:if="${result.currency.code == 'USD' || result.currencyRate == null}" th:text="'Currency: ' + ${result.currency.code}" />
+
+<div style="display: inline-flex">
+    <div th:text="'Local time:&nbsp;'"/>
+    <div th:each="localtime : ${result.localTimes}">
+        <span th:text="${#temporals.format(localtime.value, 'HH:mm:ss')} + ' (UTC' + ${localtime.key} + ')&nbsp;'" />
+    </div>
+</div>
+
+<p th:text="'Estimated distance: ' + ${#numbers.formatDecimal(result.distanceToBA, 0, 0)} + ' km'" />
+
+<a href="/lookup">Trace another ip address</a>
+</body>
+</html>
