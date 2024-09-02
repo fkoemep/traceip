@@ -1,5 +1,6 @@
 package com.ipinformation.model.responses;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.ipinformation.model.objects.Currency;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.IOException;
@@ -87,7 +89,7 @@ class TimeZonesDeserializer extends StdDeserializer<List<String>> {
 
 @Document("DevMeCountryApiResponse")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DevMeCountryApiResponse implements Serializable {
+public class DevMeCountryApiResponse extends Response implements Serializable {
 
     public DevMeCountryApiResponse() {
 
@@ -106,20 +108,26 @@ public class DevMeCountryApiResponse implements Serializable {
         return currencies;
     }
 
+    @JsonIgnore
+    @Transient
     public Currency getFirstCurrency() {
-        return currencies.getFirst();
+        return currencies != null ? currencies.getFirst() : null;
     }
 
     public ArrayList<Integer> getLatlng() {
         return latlng;
     }
 
+    @JsonIgnore
+    @Transient
     public Integer getLatitude() {
-        return latlng.getFirst();
+        return latlng != null ? latlng.getFirst() : null;
     }
 
+    @JsonIgnore
+    @Transient
     public Integer getLongitude() {
-        return latlng.getLast();
+        return latlng != null ? latlng.getLast() : null;
     }
 
     public ArrayList<String> getTimezones() {

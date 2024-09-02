@@ -25,7 +25,7 @@ public class RequestService {
 
         IPApiResponse ipInfo = externalRequestsService.getIpInfo(ipAddress);
         DevMeCountryApiResponse countryInfo = externalRequestsService.getCountryInfo(ipInfo.getCountryCode());
-        DevMeCurrencyApiResponse currencyInfo = externalRequestsService.getCurrencyInfo(countryInfo.getFirstCurrency().getCode());
+        DevMeCurrencyApiResponse currencyInfo = externalRequestsService.getCurrencyInfo(countryInfo.getFirstCurrency() != null ? countryInfo.getFirstCurrency().getCode() : null);
         double distance = distanceCalculator.calculateDistanceFromBA(countryInfo.getLatitude(), countryInfo.getLongitude());
 
         IpLookupResponse response = new IpLookupResponse();

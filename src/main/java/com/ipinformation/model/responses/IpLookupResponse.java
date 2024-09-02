@@ -8,11 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedMap;
 
 @Document("IpLookupResponse")
-public class IpLookupResponse {
+public class IpLookupResponse{
     private String ip;
     private String countryCode;
     private String countryName;
